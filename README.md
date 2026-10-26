@@ -37,16 +37,9 @@ A modern, sleek, interactive crossword web game powered by the **A\* Search Algo
 
 Since this is a clean, dependency-free web app, you can run it with Python's built-in web server:
 
-```bash
-cd /Users/devansheeagarwal/Desktop/crossword-game
-python3 -m http.server 3000
-```
-Then open `http://localhost:3000` in your browser!
+Open `https://crossword-game-nu.vercel.app/` in your browser!
 
 ---
 
 
-```bash
-vercel
-```
-Follow the 3 quick prompts and your project is instantly live!
+
