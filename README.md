@@ -4,7 +4,7 @@ A modern, sleek, interactive crossword web game powered by the **A\* Search Algo
 
 ---
 
-## ✨ Features
+## Features
 
 - **8-Word Crossword Generator**: Generates an interconnected compact crossword puzzle from 8 words using the A* Search algorithm.
 - **Authentic Black Blocker Tiles ("Black Types")**: Authentic newspaper and arcade style black blocks framing the letter cells.
@@ -20,20 +20,20 @@ A modern, sleek, interactive crossword web game powered by the **A\* Search Algo
   - Heuristic $h(n)$: `remaining_words * 100`
   - Real-time display of states explored and grid dimensions.
 - **Multiple Themes**:
-  - 🕶️ **Classic Noir**: Deep dark mode with golden amber accents.
-  - 👾 **Retro Arcade**: 8-bit neon aesthetic with pastel pink highlights.
-  - 📰 **Cozy Newspaper**: Vintage cream and ink look.
+  - **Classic Noir**: Deep dark mode with golden amber accents.
+  - **Retro Arcade**: 8-bit neon aesthetic with pastel pink highlights.
+  - **Cozy Newspaper**: Vintage cream and ink look.
 - **Curated 8-Word Packs & Custom Input**:
-  - 🤖 AISC & Artificial Intelligence
-  - 👾 Retro Arcade & Gaming
-  - 🐾 Cute Animals & Wildlife
-  - ☕ Cozy Cafe & Bakery
-  - 🚀 Cosmic Space & Stars
-  - ✏️ Custom 8 Words builder
+  - AISC & Artificial Intelligence
+  - Retro Arcade & Gaming
+  - Cute Animals & Wildlife
+  - Cozy Cafe & Bakery
+  - Cosmic Space & Stars
+  - Custom 8 Words builder
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 Since this is a clean, dependency-free web app, you can run it with Python's built-in web server:
 
