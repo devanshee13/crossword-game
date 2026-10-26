@@ -33,9 +33,9 @@ A modern, sleek, interactive crossword web game powered by the **A\* Search Algo
 
 ---
 
-## How to Run Locally
+## How to Run 
 
-Since this is a clean, dependency-free web app, you can run it with Python's built-in web server:
+Since this is a clean, dependency-free web app, you can run it in your browser:
 
 Open `https://crossword-game-nu.vercel.app/` in your browser!
 
