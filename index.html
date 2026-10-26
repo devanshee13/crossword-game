@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="noir">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A* Mini Crossword Game | AISC AI Project</title>
+  <meta name="description" content="Playable 8-word crossword game generated using A* Search algorithm with authentic black tiles, clues, and AI solver visualization.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas for Victory -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <div class="logo-badge">■</div>
+        <div class="brand-text">
+          <h1>A* Crossword <span>Mini</span></h1>
+          <p>AISC AI Search Project • 8 Words Crossword</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="pill pill-timer" id="timer-display" title="Game timer">
+          ⏱️ <span id="timer-text">00:00</span>
+        </div>
+
+        <button class="pill btn-icon" id="btn-sound" title="Toggle Sound">
+          🔊
+        </button>
+
+        <button class="pill" id="btn-theme" title="Switch Theme">
+          🎨 <span id="theme-name">Noir</span>
+        </button>
+
+        <button class="pill" id="btn-aisc-info" title="A* Algorithm Details">
+          🧠 <span>A* Search Info</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Pack / Wordset Banner -->
+    <div class="pack-banner">
+      <div class="pack-info">
+        <span class="pack-tag" id="pack-badge">AISC Special</span>
+        <span class="pack-title" id="pack-title">🤖 AISC & Artificial Intelligence</span>
+      </div>
+      <div class="pack-actions">
+        <select class="pill" id="pack-select" aria-label="Select 8-Word Puzzle Theme">
+          <!-- Populated by JavaScript -->
+        </select>
+        <button class="pill" id="btn-custom-words">
+          ✏️ Custom 8 Words
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Game Layout -->
+    <main class="game-layout">
+      <!-- Left Column: Crossword Board -->
+      <section class="board-card" aria-label="Crossword Grid">
+        <!-- Current Active Clue Ribbon -->
+        <div class="clue-active-banner" id="active-clue-banner">
+          <span class="clue-num" id="active-clue-num">1-Across</span>
+          <span id="active-clue-text">Select any cell to start solving...</span>
+        </div>
+
+        <!-- The Crossword Board Grid with Black Blocks -->
+        <div class="board-viewport">
+          <div class="crossword-grid" id="crossword-grid" role="grid" aria-label="Crossword Puzzle Grid">
+            <!-- Rendered dynamically by game.js -->
+          </div>
+        </div>
+
+        <!-- Board Game Controls -->
+        <div class="board-actions">
+          <button class="btn btn-primary" id="btn-check">
+            ✅ Check
+          </button>
+          <button class="btn btn-secondary" id="btn-hint">
+            💡 Hint Letter
+          </button>
+          <button class="btn btn-secondary" id="btn-reveal">
+            👁️ A* Solution
+          </button>
+          <button class="btn btn-secondary" id="btn-reset">
+            🔄 Reset
+          </button>
+          <button class="btn btn-secondary" id="btn-new-puzzle">
+            🎲 New Puzzle
+          </button>
+        </div>
+      </section>
+
+      <!-- Right Column: Clues List & A* Search Dashboard -->
+      <aside class="side-panel">
+        <!-- Clues Container -->
+        <div class="clues-card">
+          <div class="clues-header">
+            <h2>📜 Puzzle Clues</h2>
+            <span class="clues-progress" id="progress-indicator">0 / 8 Solved</span>
+          </div>
+
+          <div class="clues-lists-grid">
+            <div class="clue-column">
+              <h3>➡️ Across</h3>
+              <ul class="clue-list" id="across-clues-list"></ul>
+            </div>
+            <div class="clue-column">
+              <h3>⬇️ Down</h3>
+              <ul class="clue-list" id="down-clues-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- AISC Search Metrics Panel -->
+        <div class="aisc-card">
+          <div class="aisc-header">
+            <h3>⚡ A* Search Heuristics</h3>
+            <span class="pack-tag" style="background: rgba(251, 191, 36, 0.15); color: var(--accent-gold);">Optimal</span>
+          </div>
+
+          <div class="aisc-metrics-grid">
+            <div class="metric-box">
+              <div class="metric-val" id="metric-grid-size">-</div>
+              <div class="metric-lbl">Grid Size</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" id="metric-area-g">-</div>
+              <div class="metric-lbl">Area Cost g(n)</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" id="metric-states">-</div>
+              <div class="metric-lbl">States Explored</div>
+            </div>
+          </div>
+
+          <div class="aisc-formula">
+            Evaluation: <span>f(n) = g(n) + h(n)</span> (Area + Remaining &times; 100)
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Custom 8 Words Modal -->
+    <div class="modal-overlay" id="custom-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>✏️ Enter 8 Custom Words</h2>
+          <button class="modal-close" id="btn-close-modal">&times;</button>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+          Type any 8 words (separated by commas or lines). The A* algorithm will find the optimal intersections with black blocker tiles!
+        </p>
+        <textarea class="custom-words-input" id="custom-words-input" placeholder="e.g. PYTHON, ALGO, SEARCH, GRAPH, MATRIX, LOGIC, AGENT, SMART"></textarea>
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button class="btn btn-secondary" id="btn-cancel-custom">Cancel</button>
+          <button class="btn btn-primary" id="btn-generate-custom">⚡ Generate with A*</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AISC Info Modal -->
+    <div class="modal-overlay" id="aisc-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>🧠 A* Crossword Generation (AISC)</h2>
+          <button class="modal-close" id="btn-close-aisc-modal">&times;</button>
+        </div>
+        <div style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main); display: flex; flex-direction: column; gap: 12px;">
+          <p>
+            This project formulates <strong>Crossword Puzzle Generation</strong> as an <strong>Informed State-Space Search Problem</strong> using the <strong>A* Search Algorithm</strong>:
+          </p>
+          <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+            <li><strong>State Representation:</strong> A 2D coordinate board of placed letters and remaining words list.</li>
+            <li><strong>Path Cost g(n):</strong> The bounding box area <code>(max_r - min_r + 1) * (max_c - min_c + 1)</code>. This drives the search toward tight, compact, aesthetic crossword grids.</li>
+            <li><strong>Heuristic h(n):</strong> <code>remaining_words * 100</code>, penalizing unplaced words.</li>
+            <li><strong>Evaluation Function:</strong> <code>f(n) = g(n) + h(n)</code> prioritized with a Min-Heap.</li>
+            <li><strong>Black Tiles ("■"):</strong> Non-letter cells are filled with solid black blockers, honoring authentic crossword puzzle design!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>AISC Coursework Project • Built with Vanilla HTML5, CSS &amp; JavaScript • Ready for Vercel</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="solver.js"></script>
+  <script src="words.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
