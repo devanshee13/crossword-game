@@ -1,6 +1,6 @@
 # 🧩 A* Mini Crossword Game (AISC AI Coursework)
 
-A modern, sleek, interactive crossword web game powered by the **A\* Search Algorithm**, featuring authentic **black blocker tiles ("black types")**, dynamic Across & Down clues, keyboard navigation, themes, and instant Vercel deployment.
+A modern, sleek, interactive crossword web game powered by the **A\* Search Algorithm**, featuring authentic **black blocker tiles ("black types")**, dynamic Across & Down clues, keyboard navigation, themes.
 
 ---
 
