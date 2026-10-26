@@ -45,24 +45,7 @@ Then open `http://localhost:3000` in your browser!
 
 ---
 
-## 🌐 How to Deploy to Vercel (1-Click & Free)
 
-### Option 1: Via GitHub (Easiest & Automatic)
-1. Push this folder to a new GitHub repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit of A* Crossword Game"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/crossword-game.git
-   git push -u origin main
-   ```
-2. Go to [vercel.com](https://vercel.com) and log in.
-3. Click **"Add New Project"** -> Select your `crossword-game` GitHub repo.
-4. Click **Deploy**. Vercel will automatically detect the static project and deploy it in ~15 seconds to a live URL like `https://crossword-game.vercel.app`!
-
-### Option 2: Via Vercel CLI
-If you have Vercel CLI installed:
 ```bash
 vercel
 ```
